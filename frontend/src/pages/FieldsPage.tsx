@@ -62,7 +62,6 @@ export function FieldsPage() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl font-medium text-stone-800">Fields</h1>
@@ -71,7 +70,6 @@ export function FieldsPage() {
             {!isAdmin && ' assigned to you'}
           </p>
         </div>
-        {/* Only admins can create fields */}
         {isAdmin && (
           <button
             onClick={() => { setEditingField(null); setShowForm(true); }}
@@ -83,7 +81,6 @@ export function FieldsPage() {
         )}
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-52">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
@@ -120,7 +117,6 @@ export function FieldsPage() {
         </select>
       </div>
 
-      {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -152,7 +148,6 @@ export function FieldsPage() {
         </div>
       )}
 
-      {/* Form modal */}
       {showForm && (
         <FieldForm
           field={editingField}
@@ -160,8 +155,7 @@ export function FieldsPage() {
           onClose={handleClose}
         />
       )}
-
-      {/* Delete confirm modal — admin only */}
+      
       {deletingField && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-slide-up">

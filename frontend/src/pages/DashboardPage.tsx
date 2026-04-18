@@ -23,7 +23,6 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Header */}
       <div>
         <h1 className="font-display text-3xl font-medium text-stone-800">
           Good {getGreeting()}, {user?.name?.split(' ')[0]}.
@@ -35,7 +34,6 @@ export function DashboardPage() {
         </p>
       </div>
 
-      {/* Stats grid */}
       {stats && (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <StatCard
@@ -69,7 +67,6 @@ export function DashboardPage() {
         </div>
       )}
 
-      {/* Stage breakdown */}
       {stats && (
         <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-6">
           <h2 className="font-display text-lg font-medium text-stone-700 mb-5">Fields by Stage</h2>
@@ -87,7 +84,6 @@ export function DashboardPage() {
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* At Risk fields */}
         {atRiskFields.length > 0 && (
           <div className="bg-white rounded-2xl border border-red-100 shadow-sm p-6">
             <div className="flex items-center gap-2 mb-5">
@@ -114,7 +110,6 @@ export function DashboardPage() {
           </div>
         )}
 
-        {/* Recent activity */}
         <div className="bg-white rounded-2xl border border-stone-100 shadow-sm p-6">
           <h2 className="font-display text-lg font-medium text-stone-700 mb-5">Recent Fields</h2>
           {fieldsLoading ? (

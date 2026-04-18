@@ -20,31 +20,49 @@ enum Stage {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String     @id @default(uuid())
+  email     String     @unique
   password  String
   name      String
-  role      Role     @default(AGENT)
+  role      Role       @default(AGENT)
   fields    Field[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  logs      FieldLog[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   @@map("users")
 }
 
 model Field {
-  id           String   @id @default(uuid())
+  id           String     @id @default(uuid())
   name         String
   cropType     String
   plantingDate DateTime
-  currentStage Stage    @default(PLANTED)
+  currentStage Stage      @default(PLANTED)
   notes        String?
   location     String?
   agentId      String
-  agent        User     @relation(fields: [agentId], references: [id], onDelete: Cascade)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  agent        User       @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  logs         FieldLog[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   @@index([agentId])
   @@map("fields")
+}
+
+model FieldLog {
+  id        String   @id @default(uuid())
+  fieldId   String
+  field     Field    @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  agentId   String
+  agent     User     @relation(fields: [agentId], references: [id])
+  prevStage Stage
+  newStage  Stage
+  notes     String?
+  createdAt DateTime @default(now())
+
+  @@index([fieldId])
+  @@index([agentId])
+  @@map("field_logs")
 }

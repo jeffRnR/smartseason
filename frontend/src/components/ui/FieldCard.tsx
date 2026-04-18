@@ -14,7 +14,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
 
   return (
     <div className="bg-white rounded-2xl border border-stone-100 shadow-sm hover:shadow-md transition-all duration-200 animate-slide-up overflow-hidden group">
-      {/* Status stripe */}
       <div
         className={`h-1.5 w-full ${
           field.status === 'Active'
@@ -26,7 +25,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
       />
 
       <div className="p-5">
-        {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1 min-w-0">
             <h3 className="font-display font-medium text-stone-800 text-lg leading-tight truncate">
@@ -40,7 +38,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
           <StatusBadge status={field.status} size="sm" />
         </div>
 
-        {/* Meta */}
         <div className="space-y-1.5 mb-4">
           {field.location && (
             <div className="flex items-center gap-2 text-xs text-stone-400">
@@ -65,7 +62,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
           </div>
         </div>
 
-        {/* Stage + Agent */}
         <div className="flex items-center justify-between">
           <StageBadge stage={field.currentStage} />
           {isAdmin && (
@@ -75,7 +71,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
           )}
         </div>
 
-        {/* Notes */}
         {field.notes && (
           <p className="mt-3 text-xs text-stone-400 italic line-clamp-2 border-t border-stone-50 pt-3">
             "{field.notes}"
@@ -83,7 +78,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
         )}
       </div>
 
-      {/* Actions — revealed on hover */}
       <div className="px-5 pb-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity -mt-1">
         <button
           onClick={() => onEdit(field)}
@@ -92,7 +86,6 @@ export function FieldCard({ field, onEdit, onDelete }: FieldCardProps) {
           <Pencil className="w-3.5 h-3.5" />
           {isAdmin ? 'Edit' : 'Update'}
         </button>
-        {/* Delete is admin-only */}
         {onDelete && (
           <button
             onClick={() => onDelete(field)}

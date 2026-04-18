@@ -44,7 +44,7 @@ export interface CreateFieldDto {
   currentStage?: Stage;
   notes?: string;
   location?: string;
-  agentId?: string; // Admin only
+  agentId?: string;
 }
 
 export interface UpdateFieldDto {
@@ -54,7 +54,7 @@ export interface UpdateFieldDto {
   currentStage?: Stage;
   notes?: string;
   location?: string;
-  agentId?: string; // Admin only
+  agentId?: string;
 }
 
 export interface RegisterDto {
@@ -69,7 +69,6 @@ export interface LoginDto {
   password: string;
 }
 
-// Extend Express Request
 declare global {
   namespace Express {
     interface Request {

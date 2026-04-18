@@ -12,7 +12,6 @@ export function useAgents() {
         const { data } = await api.get('/users');
         setAgents(data.data.filter((u: User) => u.role === 'AGENT'));
       } catch {
-        // Non-admins can't access this route — silently fail
       } finally {
         setLoading(false);
       }

@@ -34,7 +34,6 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen bg-stone-50 flex">
-      {/* Left panel */}
       <div className="hidden lg:flex lg:w-1/2 bg-leaf-700 flex-col justify-between p-12 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'radial-gradient(circle at 30% 70%, #fff 0, transparent 60%), radial-gradient(circle at 80% 20%, #fff 0, transparent 50%)' }}
@@ -68,7 +67,6 @@ export function LoginPage() {
         </div>
       </div>
 
-      {/* Right panel */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="lg:hidden flex items-center gap-2.5 mb-10">
@@ -136,7 +134,6 @@ export function LoginPage() {
             </Link>
           </p>
 
-          {/* Demo hint */}
           <div className="mt-8 p-4 bg-soil-50 border border-soil-200 rounded-xl">
             <p className="text-xs font-semibold text-soil-700 mb-2">Demo Credentials</p>
             <div className="space-y-1 font-mono text-xs text-soil-600">

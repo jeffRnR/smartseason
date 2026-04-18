@@ -18,7 +18,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Admin form state — full field
   const [adminForm, setAdminForm] = useState<CreateFieldDto>({
     name: field?.name || '',
     cropType: field?.cropType || '',
@@ -31,7 +30,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
     agentId: field?.agentId || '',
   });
 
-  // Agent form state — stage + notes only
   const [agentForm, setAgentForm] = useState({
     currentStage: field?.currentStage || 'PLANTED' as Stage,
     notes: field?.notes || '',
@@ -90,7 +88,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
           </button>
         </div>
 
-        {/* Body */}
         <div className="px-6 py-5 space-y-4">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
@@ -98,7 +95,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
             </div>
           )}
 
-          {/* ── ADMIN FORM — full control ── */}
           {isAdmin && (
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
@@ -188,7 +184,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
             </div>
           )}
 
-          {/* ── AGENT FORM — stage + notes only ── */}
           {!isAdmin && (
             <div className="space-y-4">
               <div className="bg-stone-50 border border-stone-100 rounded-xl px-4 py-3 text-sm text-stone-500">
@@ -224,7 +219,6 @@ export function FieldForm({ field, onSubmit, onClose }: FieldFormProps) {
           )}
         </div>
 
-        {/* Footer */}
         <div className="px-6 py-4 border-t border-stone-100 flex justify-end gap-3">
           <button
             onClick={onClose}

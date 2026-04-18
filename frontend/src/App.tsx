@@ -6,6 +6,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { FieldsPage } from './pages/FieldsPage';
 import { AgentsPage } from './pages/AgentsPage';
+import { LogsPage } from './pages/LogsPage';
 
 export default function App() {
   return (
@@ -14,30 +15,10 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/fields"
-            element={
-              <ProtectedRoute>
-                <FieldsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/agents"
-            element={
-              <ProtectedRoute adminOnly>
-                <AgentsPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/fields" element={<ProtectedRoute><FieldsPage /></ProtectedRoute>} />
+          <Route path="/logs" element={<ProtectedRoute><LogsPage /></ProtectedRoute>} />
+          <Route path="/agents" element={<ProtectedRoute adminOnly><AgentsPage /></ProtectedRoute>} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>

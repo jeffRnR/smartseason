@@ -6,13 +6,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
-  // Clear existing data
   await prisma.field.deleteMany();
   await prisma.user.deleteMany();
 
   const hashedPassword = await bcrypt.hash('password123', 12);
 
-  // Create Admin
+  //adding admin
   const admin = await prisma.user.create({
     data: {
       email: 'admin@smartseason.com',
@@ -22,7 +21,7 @@ async function main() {
     },
   });
 
-  // Create Agents
+  //adding agents
   const agent1 = await prisma.user.create({
     data: {
       email: 'agent1@smartseason.com',
@@ -41,13 +40,12 @@ async function main() {
     },
   });
 
-  // Create Fields with varying states to trigger different statuses
   const now = new Date();
   const daysAgo = (d: number) => new Date(now.getTime() - d * 24 * 60 * 60 * 1000);
 
   await prisma.field.createMany({
     data: [
-      // Active fields
+      //active fields
       {
         name: 'North Paddock',
         cropType: 'Maize',
@@ -75,7 +73,6 @@ async function main() {
         location: 'Uasin Gishu County',
         agentId: agent2.id,
       },
-      // At Risk fields
       {
         name: 'Riverside Block',
         cropType: 'Beans',
@@ -94,7 +91,6 @@ async function main() {
         location: 'Machakos County',
         agentId: agent2.id,
       },
-      // Completed
       {
         name: 'South Field',
         cropType: 'Sunflower',

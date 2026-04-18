@@ -5,14 +5,13 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Inject JWT on every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('ss_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Handle 401 globally
+// handle 401 globally
 api.interceptors.response.use(
   (res) => res,
   (err) => {
