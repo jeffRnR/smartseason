@@ -224,18 +224,18 @@ This verifies the computed status rules without any code changes.
 
 | Field | Days planted | Stage | Expected status | Actual |
 |---|---|---|---|---|
-| North Paddock | 15 | Planted | 🟢 Active | ✓ |
-| Valley Plot | 55 | Growing | 🟢 Active | ✓ |
-| Riverside Block | 35 | Planted | ⚠️ At Risk | ✓ |
-| Hilltop Farm | 80 | Ready | 🟢 Active | ✓ |
-| Eastern Quarter | 100 | Growing | ⚠️ At Risk | ✓ |
-| South Field | 130 | Harvested | ✅ Completed | ✓ |
+| North Paddock | 15 | Planted | Active | ✓ |
+| Valley Plot | 55 | Growing | Active | ✓ |
+| Riverside Block | 35 | Planted | At Risk | ✓ |
+| Hilltop Farm | 80 | Ready | Active | ✓ |
+| Eastern Quarter | 100 | Growing | At Risk | ✓ |
+| South Field | 130 | Harvested | Completed | ✓ |
 
 **To manually trigger an At Risk status:**
 1. As Admin, create a new field
 2. Set Planting Date to 40 days ago
 3. Set Stage to Planted
-4. Save → the card immediately shows ⚠️ At Risk
+4. Save → the card immediately shows At Risk
 
 This proves the status is computed on read — you set no "status" field anywhere.
 

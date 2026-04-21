@@ -123,8 +123,8 @@ Agents are assigned fields by an admin. Their only write permission is updating 
 
 | Action | Admin | Agent |
 |---|---|---|
-| Create field | ✅ | ❌ 403 |
-| Delete field | ✅ | ❌ 403 |
+| Create field | ✅ | ❌ |
+| Delete field | ✅ | ❌ |
 | Edit all field data | ✅ | ❌ |
 | Update stage + notes | ✅ | ✅ Own fields only |
 | View fields | All fields | Own fields only |
@@ -321,15 +321,15 @@ npm run dev:frontend
 ## Scripts
 
 ```bash
-npm run install:all      # Install backend + frontend dependencies
-npm run dev:backend      # Start Express API with hot reload
-npm run dev:frontend     # Start Vite dev server
-npm run db:generate      # Prisma generate
-npm run db:migrate       # Prisma migrate dev
-npm run db:seed          # Seed demo data
-npm run db:studio        # Open Prisma Studio GUI
-npm run build:backend    # Compile TypeScript
-npm run build:frontend   # Vite production build
+npm run install:all      #install backend and frontend dependencies
+npm run dev:backend      #start express API
+npm run dev:frontend     # start vite dev server
+npm run db:generate      # prisma generate
+npm run db:migrate       # prisma migrate dev
+npm run db:seed          # seed demo data to prisma db
+npm run db:studio        #open prisma studio on web browser
+npm run build:backend    #compile TypeScript
+npm run build:frontend   #vite production build
 ```
 
 ---
