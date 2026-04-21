@@ -57,13 +57,6 @@ export interface UpdateFieldDto {
   agentId?: string;
 }
 
-export interface RegisterDto {
-  email: string;
-  password: string;
-  name: string;
-  role?: Role;
-}
-
 export interface LoginDto {
   email: string;
   password: string;

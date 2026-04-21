@@ -13,7 +13,7 @@
 
 ## Features
 
-- **JWT Authentication** — Register, login, protected routes
+- **JWT Authentication** — Login, protected routes
 - **Role-Based Access Control** — Admin vs Field Agent with strictly scoped permissions
 - **Field Management** — Admins create and assign fields; agents update stage and notes only
 - **Live Status Computation** — `Active / At Risk / Completed` derived at read-time, never stored in the database
@@ -29,37 +29,37 @@
 smart-season/                            ← Monorepo root
 ├── backend/
 │   ├── src/
-│   │   ├── controllers/                 # HTTP handlers — thin, delegate to services
+│   │   ├── controllers/                
 │   │   │   ├── auth.controller.ts
 │   │   │   ├── field.controller.ts
 │   │   │   └── fieldLog.controller.ts
-│   │   ├── services/                    # Business logic + status computation
+│   │   ├── services/                    
 │   │   │   ├── auth.service.ts
-│   │   │   ├── field.service.ts         # Writes log entry on every stage change
+│   │   │   ├── field.service.ts        
 │   │   │   └── fieldLog.service.ts
-│   │   ├── repositories/                # All Prisma queries isolated here
+│   │   ├── repositories/               
 │   │   │   ├── user.repository.ts
 │   │   │   ├── field.repository.ts
 │   │   │   └── fieldLog.repository.ts
 │   │   ├── middleware/
-│   │   │   └── auth.middleware.ts       # authenticate + requireRole guards
+│   │   │   └── auth.middleware.ts   
 │   │   ├── routes/
 │   │   │   ├── auth.routes.ts
 │   │   │   ├── field.routes.ts
 │   │   │   ├── fieldLog.routes.ts
 │   │   │   └── user.routes.ts
 │   │   ├── utils/
-│   │   │   ├── prisma.ts                # Prisma client singleton
-│   │   │   └── statusCalculator.ts      # Core status logic — never touches DB
+│   │   │   ├── prisma.ts                
+│   │   │   └── statusCalculator.ts     
 │   │   └── types/index.ts
 │   └── prisma/
-│       ├── schema.prisma                # User, Field, FieldLog models
-│       └── seed.ts                      # Demo data seeder
+│       ├── schema.prisma                
+│       └── seed.ts                     
 └── frontend/
     └── src/
         ├── components/
-        │   ├── layout/Layout.tsx         # Sidebar navigation
-        │   └── ui/                       # FieldCard, FieldForm, StatusBadge, StatCard
+        │   ├── layout/Layout.tsx         
+        │   └── ui/                     
         ├── hooks/
         │   ├── useFields.ts
         │   ├── useDashboard.ts
@@ -67,14 +67,13 @@ smart-season/                            ← Monorepo root
         │   └── useFieldLogs.ts
         ├── pages/
         │   ├── LoginPage.tsx
-        │   ├── RegisterPage.tsx
         │   ├── DashboardPage.tsx
         │   ├── FieldsPage.tsx
         │   ├── LogsPage.tsx
         │   └── AgentsPage.tsx
         ├── lib/
-        │   ├── api.ts                    # Axios client with JWT interceptor
-        │   └── auth-context.tsx          # React auth context
+        │   ├── api.ts               
+        │   └── auth-context.tsx  
         └── types/index.ts
 ```
 
@@ -112,11 +111,11 @@ export function calculateFieldStatus(stage: Stage, plantingDate: Date): FieldSta
 
 | Condition | Status | Reasoning |
 |---|---|---|
-| Stage = `HARVESTED` | ✅ Completed | Lifecycle is done |
-| Stage = `PLANTED` and days > 30 | ⚠️ At Risk | Should have germinated by now |
-| Stage = `GROWING` and days > 90 | ⚠️ At Risk | Growth has stalled |
-| Stage = `READY` (any age) | 🟢 Active | Awaiting harvest, not at risk |
-| Everything else | 🟢 Active | Progressing normally |
+| Stage = `HARVESTED` | Completed | Lifecycle is done |
+| Stage = `PLANTED` and days > 30 | At Risk | Should have germinated by now |
+| Stage = `GROWING` and days > 90 | At Risk | Growth has stalled |
+| Stage = `READY` (any age) | Active | Awaiting harvest, not at risk |
+| Everything else | Active | Progressing normally |
 
 ### 2. Agents Cannot Create or Delete Fields
 
@@ -135,7 +134,6 @@ Agents are assigned fields by an admin. Their only write permission is updating 
 Every time `currentStage` changes — whether by an admin or agent — a `FieldLog` record is automatically written in `field.service.ts` before returning the updated field. The log captures the previous stage, new stage, who made the change, and any notes submitted with the update.
 
 ```typescript
-// Inside updateField() in field.service.ts
 if (newStage !== existing.currentStage) {
   await fieldLogRepository.create({
     fieldId: existing.id,
@@ -236,7 +234,7 @@ JWT_SECRET="any-long-random-string-at-least-32-characters"
 JWT_EXPIRES_IN="7d"
 PORT=3001
 NODE_ENV=development
-FRONTEND_URL="http://localhost:5173"
+FRONTEND_URL="http://localhost:5000"
 ```
 
 > **Using Neon?** Go to [neon.tech](https://neon.tech) → New Project → copy the connection string into `DATABASE_URL`.
@@ -255,7 +253,7 @@ npm run db:seed       # Insert demo users and fields
 # Terminal 1 — API on http://localhost:3001
 npm run dev:backend
 
-# Terminal 2 — App on http://localhost:5173
+# Terminal 2 — App on http://localhost:5000
 npm run dev:frontend
 ```
 
@@ -273,13 +271,12 @@ npm run dev:frontend
 
 ---
 
-## 📡 API Reference
+## API Reference
 
 ### Auth
 
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
-| `POST` | `/api/auth/register` | ❌ | Register new user |
 | `POST` | `/api/auth/login` | ❌ | Login — returns JWT + user |
 | `GET` | `/api/auth/profile` | ✅ | Get current user |
 
@@ -314,7 +311,6 @@ npm run dev:frontend
 | Route | Access | Description |
 |---|---|---|
 | `/login` | Public | Login with demo credentials hint |
-| `/register` | Public | Register with role selection |
 | `/dashboard` | All roles | KPI cards, at-risk alerts, recent fields |
 | `/fields` | All roles | Search, filter, update fields; admins can add/delete |
 | `/logs` | All roles | Timeline of all stage changes — role scoped |

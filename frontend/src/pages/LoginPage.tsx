@@ -127,21 +127,14 @@ export function LoginPage() {
             </button>
           </div>
 
-          <p className="text-center text-sm text-stone-500 mt-6">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-leaf-600 font-medium hover:underline">
-              Register
-            </Link>
-          </p>
-
-          <div className="mt-8 p-4 bg-soil-50 border border-soil-200 rounded-xl">
+          {/* <div className="mt-8 p-4 bg-soil-50 border border-soil-200 rounded-xl">
             <p className="text-xs font-semibold text-soil-700 mb-2">Demo Credentials</p>
             <div className="space-y-1 font-mono text-xs text-soil-600">
               <p>Admin: admin@smartseason.com</p>
               <p>Agent: agent1@smartseason.com</p>
               <p>Password: password123</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
