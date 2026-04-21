@@ -372,35 +372,10 @@ npm run build:frontend   #vite production build
 2. Paste the connection string into `DATABASE_URL`
 3. Run `npx prisma migrate deploy` in production (not `migrate dev`)
 
-### Backend → Railway / Render
-
-```
-Root Directory:  backend/
-Build Command:   npm install && npm run build
-Start Command:   npm start
-```
-
-Set all environment variables from `.env`.
-
-### Frontend → Vercel
-
-```
-Root Directory:  frontend/
-```
-
-Add:
-
-```
-VITE_API_BASE_URL=https://your-backend.railway.app
-```
-
-> **Note:** The Vite `/api` proxy only works in development. In production, update `frontend/src/lib/api.ts` to use `import.meta.env.VITE_API_BASE_URL` as the Axios base URL.
-
----
-
-## Live Deployment
+### Live Deployment
 
 Frontend: https://smartseasonke.vercel.app/
+Backend: https://smartseason-production-45ce.up.railway.app/
 
 ---
 
