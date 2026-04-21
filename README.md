@@ -7,7 +7,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=flat-square&logo=postgresql&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 
-> A full-stack agricultural field monitoring platform with JWT authentication, role-based access control, real-time computed field status, and a complete audit log of every stage change — built as a clean monorepo.
+> This full-stack application enables agricultural coordinators to monitor crop progress across multiple fields through field agents. It supports field assignment, progress updates, and automated status tracking to identify at-risk crops early. It uses JWT authentication, role-based access control, real-time computed field status, and a complete audit log of every stage change.
 
 ---
 
@@ -89,11 +89,32 @@ Every request flows through three strict layers with no cross-layer access:
 
 ---
 
+## Field Status Logic
+
+The system determines field status using both stage and time since planting.
+
+- COMPLETED → when stage is HARVESTED
+- AT_RISK → when:
+  - Stage is PLANTED and > 30 days
+  - Stage is GROWING and > 90 days
+- ACTIVE → all other cases
+
+This approach ensures delayed crop progress is flagged early while keeping the logic simple and explainable.
+
+---
+
 ## Key Design Decisions
 
-### 1. Status is Computed, Never Stored
+### 1. Status Computation Strategy
 
-The `status` field (`Active`, `At Risk`, `Completed`) does not exist in the database. It is derived on every read in `statusCalculator.ts`:
+Field status is computed dynamically at read-time and is not stored in the database.
+
+This ensures:
+- No stale data over time
+- No need for background jobs or cron tasks
+- Always reflects current field conditions
+
+This trade-off prioritises correctness over query performance, which is acceptable for the current system scale.
 
 ```typescript
 export function calculateFieldStatus(stage: Stage, plantingDate: Date): FieldStatus {
@@ -149,7 +170,16 @@ Log access is role-scoped: admins see all logs across the platform; agents see o
 
 ---
 
-## 🗄️ Database Schema
+## Assumptions
+
+- Crop growth durations are simplified and not crop-specific
+- Agents only manage fields assigned to them
+- Field status is derived from stage and time only (no external factors like weather or soil conditions)
+- The system assumes consistent internet connectivity for updates
+
+---
+
+## Database Schema
 
 ```prisma
 enum Role  { ADMIN  AGENT }
@@ -215,7 +245,7 @@ model FieldLog {
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/your-username/smart-season.git
+git clone https://github.com/jeffRnR/smartseason
 cd smart-season
 npm run install:all
 ```
@@ -368,6 +398,12 @@ VITE_API_BASE_URL=https://your-backend.railway.app
 
 ---
 
+## Live Deployment
+
+Frontend: https://smartseasonke.vercel.app/
+
+---
+
 ## Tech Stack
 
 | | Technology |
@@ -380,5 +416,14 @@ VITE_API_BASE_URL=https://your-backend.railway.app
 | Styling | Tailwind CSS v3 |
 | HTTP Client | Axios |
 | Icons | Lucide React |
+
+---
+
+## Future Improvements
+
+- Introduce crop-specific growth thresholds for more accurate risk detection
+- Add offline support for field agents in low-connectivity areas
+- Integrate weather and soil data for more advanced risk analysis
+- Implement notifications for at-risk fields
 
 ---
