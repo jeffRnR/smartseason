@@ -64,9 +64,9 @@ Go to **Fields** in the sidebar.
 - Status stripes on cards: green for Active, red for At Risk, blue for Completed
 
 ### Test the filters:
-- Set Status filter to **At Risk** → only Riverside Block and Eastern Quarter remain
-- Set Stage filter to **Growing** → only Valley Plot and Eastern Quarter remain
-- Type **"maize"** in the search bar → only North Paddock appears
+- Set Status filter to **At Risk** - only Riverside Block and Eastern Quarter remain
+- Set Stage filter to **Growing** - only Valley Plot and Eastern Quarter remain
+- Type **"maize"** in the search bar - only North Paddock appears
 - Clear filters to reset
 
 ---
@@ -84,26 +84,26 @@ Fill in:
 - **Agent:** Brian Omondi
 - **Notes:** Pilot test field
 
-Click **Add Field** → the card should appear immediately with - Active - status.
+Click **Add Field** - the card should appear immediately with - Active - status.
 
 ---
 
 ## Scenario 4 — Admin Edits a Field
 
-Hover over any field card → click **Edit**.
+Hover over any field card - click **Edit**.
 
 As admin you can change everything: name, crop, date, stage, location, agent assignment, and notes.
 
 ### Test reassigning an agent:
-- Edit **North Paddock** → change agent from Jane Wanjiku to Brian Omondi → Save
-- Log back in as **agent1@smartseason.com** → North Paddock should be gone from their view
-- Log back in as **agent2@smartseason.com** → North Paddock should now appear
+- Edit **North Paddock** - change agent from Jane Wanjiku to Brian Omondi - Save
+- Log back in as **agent1@smartseason.com** - North Paddock should be gone from their view
+- Log back in as **agent2@smartseason.com** - North Paddock should now appear
 
 ---
 
 ## Scenario 5 — Admin Deletes a Field
 
-Hover over the **Test Plot** field you created → click **Delete** → confirm.
+Hover over the **Test Plot** field you created - click **Delete** - confirm.
 
 The card disappears. Note: agents do not see a delete button at all.
 
@@ -117,27 +117,27 @@ Go to **Activity Log** in the sidebar.
 
 | Field | Transition | When |
 |---|---|---|
-| Valley Plot | Planted → Growing | ~30 days ago |
-| Riverside Block | Planted → Planted | ~10 days ago (stall note) |
-| Hilltop Farm | Planted → Growing | ~60 days ago |
-| Hilltop Farm | Growing → Ready | ~10 days ago |
-| Eastern Quarter | Planted → Growing | ~75 days ago |
-| South Field | Planted → Growing | ~110 days ago |
-| South Field | Growing → Ready | ~25 days ago |
-| South Field | Ready → Harvested | ~5 days ago |
+| Valley Plot | Planted - Growing | 30 days ago |
+| Riverside Block | Planted - Planted | 10 days ago (stall note) |
+| Hilltop Farm | Planted - Growing | 60 days ago |
+| Hilltop Farm | Growing - Ready | 10 days ago |
+| Eastern Quarter | Planted - Growing | 75 days ago |
+| South Field | Planted - Growing | 110 days ago |
+| South Field | Growing - Ready | 25 days ago |
+| South Field | Ready - Harvested | 5 days ago |
 
-Each entry shows: field name, crop, agent name, stage transition (badge → badge), timestamp, and notes.
+Each entry shows: field name, crop, agent name, stage transition (badge - badge), timestamp, and notes.
 
 ### Test search:
-- Type **"south"** → only South Field's 3 log entries appear
-- Type **"Brian"** → all of Brian Omondi's logs appear
-- Type **"harvest"** → the Harvested transition entry appears
+- Type **"south"** - only South Field's 3 log entries appear
+- Type **"Brian"** - all of Brian Omondi's logs appear
+- Type **"harvest"** - the Harvested transition entry appears
 
 ---
 
 ## Scenario 7 — Agent Login & Scoped View
 
-**Logout → Login as Agent 1:** `agent1@smartseason.com / password123`
+**Logout - Login as Agent 1:** `agent1@smartseason.com / password123`
 
 ### What to verify on Dashboard:
 - KPI cards now show **3 Total**, **1 Active**, **1 At Risk**, **0 Completed** (Jane's fields only, not platform-wide)
@@ -146,23 +146,23 @@ Each entry shows: field name, crop, agent name, stage transition (badge → badg
 ### What to verify on Fields page:
 - Only 3 fields visible — North Paddock, Valley Plot, Riverside Block
 - **No "Add Field" button**
-- Hover a card → **no Delete button**, only "Update"
+- Hover a card - **no Delete button**, only "Update"
 
 ---
 
 ## Scenario 8 — Agent Updates a Field Stage
 
-As Agent 1, hover over **North Paddock** → click **Update**.
+As Agent 1, hover over **North Paddock** - click **Update**.
 
 ### What to verify in the modal:
 - Only two fields are shown: **Current Stage** and **Field Notes**
 - No access to name, crop, location, or agent assignment
 
-Change Stage from **Planted → Growing**, add a note: *"Seedlings fully emerged, transitioning to growing phase"* → click **Save Update**.
+Change Stage from **Planted - Growing**, add a note: "Seedlings fully emerged, transitioning to growing phase" - click **Save Update**.
 
 ### Verify the log was created:
 - Go to **Activity Log**
-- The first entry should be: North Paddock · Planted → Growing · just now
+- The first entry should be: North Paddock · Planted - Growing · just now
 
 ---
 
@@ -177,7 +177,7 @@ http://localhost:5000/fields
 Only Jane's 3 fields should be visible — Brian's fields are never returned by the API.
 
 ### Verify at the API level:
-Open browser DevTools → Network tab → click on the `GET /api/fields` request.
+Open browser DevTools - Network tab - click on the `GET /api/fields` request.
 
 The response `data` array should contain exactly 3 fields, all with `agentId` matching Jane's ID.
 
@@ -224,18 +224,18 @@ This verifies the computed status rules without any code changes.
 
 | Field | Days planted | Stage | Expected status | Actual |
 |---|---|---|---|---|
-| North Paddock | 15 | Planted | Active | ✓ |
-| Valley Plot | 55 | Growing | Active | ✓ |
-| Riverside Block | 35 | Planted | At Risk | ✓ |
-| Hilltop Farm | 80 | Ready | Active | ✓ |
-| Eastern Quarter | 100 | Growing | At Risk | ✓ |
-| South Field | 130 | Harvested | Completed | ✓ |
+| North Paddock | 15 | Planted | Active | ✅ |
+| Valley Plot | 55 | Growing | Active | ✅ |
+| Riverside Block | 35 | Planted | At Risk | ✅ |
+| Hilltop Farm | 80 | Ready | Active | ✅ |
+| Eastern Quarter | 100 | Growing | At Risk | ✅ |
+| South Field | 130 | Harvested | Completed | ✅ |
 
 **To manually trigger an At Risk status:**
 1. As Admin, create a new field
 2. Set Planting Date to 40 days ago
 3. Set Stage to Planted
-4. Save → the card immediately shows At Risk
+4. Save - the card immediately shows At Risk
 
 This proves the status is computed on read — you set no "status" field anywhere.
 

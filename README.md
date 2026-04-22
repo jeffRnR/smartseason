@@ -77,7 +77,7 @@ smart-season/                            ← Monorepo root
         └── types/index.ts
 ```
 
-### Controller → Service → Repository
+### Controller - Service - Repository
 
 Every request flows through three strict layers with no cross-layer access:
 
@@ -93,11 +93,11 @@ Every request flows through three strict layers with no cross-layer access:
 
 The system determines field status using both stage and time since planting.
 
-- COMPLETED → when stage is HARVESTED
-- AT_RISK → when:
+- COMPLETED - when stage is HARVESTED
+- AT_RISK - when:
   - Stage is PLANTED and > 30 days
   - Stage is GROWING and > 90 days
-- ACTIVE → all other cases
+- ACTIVE - all other cases
 
 This approach ensures delayed crop progress is flagged early while keeping the logic simple and explainable.
 
@@ -267,7 +267,7 @@ NODE_ENV=development
 FRONTEND_URL="http://localhost:5000"
 ```
 
-> **Using Neon?** Go to [neon.tech](https://neon.tech) → New Project → copy the connection string into `DATABASE_URL`.
+> **Using Neon?** Go to [neon.tech](https://neon.tech) - New Project - copy the connection string into `DATABASE_URL`.
 
 ### 3. Database Setup
 
@@ -366,7 +366,7 @@ npm run build:frontend   #vite production build
 
 ## Deployment
 
-### Database → Neon
+### Database - Neon
 
 1. Create a project at [neon.tech](https://neon.tech)
 2. Paste the connection string into `DATABASE_URL`
